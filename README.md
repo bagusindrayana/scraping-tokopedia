@@ -1,6 +1,6 @@
 ### Run
-- `node app.js`
-- buka url `http://localhost:3000/?q=laptop`
+- `node cmd.js` untuk versi terminalnya
+- `node app.js` untuk versi webnya buka `http://localhost:3000/?q=laptop`
 - demo url https://sleepy-cliffs-98818.herokuapp.com/?q=handphone&pmin=1000000
 
 ### Response
