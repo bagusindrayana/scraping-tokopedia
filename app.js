@@ -7,13 +7,13 @@ const express = require('express')
 const app = express()
 const port = 3000
 const fs = require('fs');
-
-const baseUrl = "https://www.tokopedia.com/search?st=product";
+const baseUrl = "https://www.tokopedia.com";
+const searchUrl = baseUrl+"/search?st=product";
 const agents = ["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36", "Mozilla/5.0 (iPad; CPU OS 13_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/79.0.3945.73 Mobile/15E148 Safari/604.1"];
 const randomAgent = agents[Math.floor(Math.random() * agents.length)];
 
 async function scrapping(paramArray = null) {
-    var url = baseUrl;
+    var url = searchUrl;
     Object.entries(paramArray).forEach(entry => {
         const [key, value] = entry;
         url += `&${key}=${value}`;
@@ -69,10 +69,12 @@ async function scrapping(paramArray = null) {
         listItems.each(function (idx, el) {
             var nama = $('[data-testid="spnSRPProdName"]', el).text();
             var harga = $('[data-testid="spnSRPProdPrice"]', el).text();
+            var link = $('a[href]', el).text();
             if (harga != null && harga != "") {
                 resulst.push({
                     "nama": nama,
                     "harga": harga,
+                    "link":link
                 });
             }
 
@@ -81,8 +83,7 @@ async function scrapping(paramArray = null) {
         await browser.close();
         return resulst;
     } catch (error) {
-        console.log(error);
-        return null;
+        return {error:error.toString()};
     }
 }
 

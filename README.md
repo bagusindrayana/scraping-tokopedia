@@ -3,6 +3,26 @@
 - buka url `http://localhost:3000/?q=laptop`
 - demo url `https://sleepy-cliffs-98818.herokuapp.com/?q=handphone&pmin=1000000`
 
+### Response
+- Success
+```json
+[
+    {
+        "nama":"-",
+        "harga":"Rp",
+        "link":"Rp"
+    }
+]
+```
+
+- Error
+```json
+{
+    "error":"-",
+}
+```
+
+
 ### Params
 
 semua parameter filter di tokopedia bisa di terapkan
