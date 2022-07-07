@@ -1,6 +1,4 @@
-const axios = require("axios");
 const cheerio = require("cheerio");
-const pretty = require("pretty");
 const puppeteer = require('puppeteer');
 const randomUseragent = require('random-useragent');
 const express = require('express')
