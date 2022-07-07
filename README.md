@@ -1,7 +1,7 @@
 ### Run
 - `node app.js`
 - buka url `http://localhost:3000/?q=laptop`
-- demo url `https://sleepy-cliffs-98818.herokuapp.com/?q=handphone&pmin=1000000`
+- demo url https://sleepy-cliffs-98818.herokuapp.com/?q=handphone&pmin=1000000
 
 ### Response
 - Success
