@@ -9,13 +9,14 @@ const port = 3000
 const fs = require('fs');
 const baseUrl = "https://www.tokopedia.com";
 const searchUrl = baseUrl + "/search?st=product";
-const randomAgent = randomUseragent.getRandom(function (ua) {
-    return ua.osName === 'Linux';//change with your OS
-});
 
-console.log(randomAgent);
 
-async function scrapping(paramArray = null) {
+async function scrapping(paramArray = null,userAgentOs = null) {
+    const randomAgent = randomUseragent.getRandom(function (ua) {
+        return (ua.osName === userAgentOs || userAgentOs == null) && (ua.browserName === 'Firefox' || ua.browserName === 'Chrome');
+    });
+    
+    console.log(randomAgent);
     var url = searchUrl;
     Object.entries(paramArray).forEach(entry => {
         const [key, value] = entry;
@@ -68,7 +69,7 @@ async function scrapping(paramArray = null) {
             if($("h1").text() == "Access Denied"){
                 return { error: body.toString() };
             }
-            // console.log(body);
+            
             // fs.writeFile('body.txt', body, function (err) {
             //     if (err) return console.log(err);
             //     console.log('Body > body.txt');
@@ -98,7 +99,7 @@ async function scrapping(paramArray = null) {
 }
 
 app.get('/', async (req, res) => {
-    var result = await scrapping(req.query);
+    var result = await scrapping(req.query,req.query.userAgentOs || "Windows");
     // res.send('Hello World!')
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(result));
