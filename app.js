@@ -61,12 +61,13 @@ async function scrapping(paramArray = null) {
         const $ = cheerio.load(body);
         const listItems = $('[data-testid="master-product-card"]');
 
-        // if(listItems.length <= 0){
-        //     fs.writeFile('body.txt', body, function (err) {
-        //         if (err) return console.log(err);
-        //         console.log('Body > body.txt');
-        //     });
-        // }
+        if(listItems.length <= 0){
+            console.log(body);
+            // fs.writeFile('body.txt', body, function (err) {
+            //     if (err) return console.log(err);
+            //     console.log('Body > body.txt');
+            // });
+        }
 
         var resulst = [];
         listItems.each(function (idx, el) {
