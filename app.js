@@ -81,7 +81,7 @@ async function scrapping(paramArray = null) {
         await browser.close();
         return resulst;
     } catch (error) {
-        console.e(error);
+        console.log(error);
         return null;
     }
 }
