@@ -9,7 +9,11 @@ const port = 3000
 const fs = require('fs');
 const baseUrl = "https://www.tokopedia.com";
 const searchUrl = baseUrl + "/search?st=product";
-const randomAgent = randomUseragent.getRandom();
+const randomAgent = randomUseragent.getRandom(function (ua) {
+    return ua.osName === 'Linux';//change with your OS
+});
+
+console.log(randomAgent);
 
 async function scrapping(paramArray = null) {
     var url = searchUrl;
