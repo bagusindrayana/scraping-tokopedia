@@ -19,11 +19,16 @@ async function scrapping(paramArray = null) {
         url += `&${key}=${value}`;
     });
     try {
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+            ],
+        });
         const page = await browser.newPage();
         await page.setJavaScriptEnabled(true);
         await page.setUserAgent(randomAgent);
-        await page.goto(url, { waituntil: 'domcontentloaded' ,timeout:0});
+        await page.goto(url, { waituntil: 'domcontentloaded', timeout: 0 });
         await page.setViewport({
             width: 1200,
             height: 800
@@ -51,7 +56,7 @@ async function scrapping(paramArray = null) {
         const body = await page.evaluate(() => {
             return document.querySelector('body').innerHTML;
         });
-     
+
         const $ = cheerio.load(body);
         const listItems = $('[data-testid="master-product-card"]');
 
@@ -64,15 +69,15 @@ async function scrapping(paramArray = null) {
         listItems.each(function (idx, el) {
             var nama = $('[data-testid="spnSRPProdName"]', el).text();
             var harga = $('[data-testid="spnSRPProdPrice"]', el).text();
-            if(harga != null && harga != ""){
+            if (harga != null && harga != "") {
                 resulst.push({
                     "nama": nama,
                     "harga": harga,
                 });
             }
-            
+
         });
-        
+
         await browser.close();
         return resulst;
     } catch (error) {
